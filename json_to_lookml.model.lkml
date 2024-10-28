@@ -1,30 +1,51 @@
 connection: "rob_argolis"
 
-#include: "/views/*.view.lkml"                # include all views in the views/ folder in this project
-# include: "/**/*.view.lkml"                 # include all views in this project
-# include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+    access_grant: client_1 { user_attribute: client_id
+  allowed_values: [
+    "1",
+    ] }
+    access_grant: client_2 { user_attribute: client_id
+  allowed_values: [
+    "2",
+    ] }
 
-# # Select the views that should be a part of this model,
-# # and define the joins that connect them together.
-#
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
-#   }
-#
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
-#   }
-# }
-
-
-explore: pylookml {
-
-}
+ explore: pylookml { 
+   
+   }
 
 
 view: pylookml {
   sql_table_name: `firstproject-352109.dacoaching.json_dynamic` ;;
-}
+  
+  
+  dimension: 1 { 
+    type: string
+    required_access_grants: [ client_id_1,] 
+    sql: ${TABLE}.KeyB ;; }
+  dimension: 2 { 
+    type: string
+    required_access_grants: [ client_id_2,] 
+    sql: ${TABLE}.KeyX ;; }
+  dimension: KeyA { 
+    type: string
+    required_access_grants: [ client_id_1,] 
+    sql: ${TABLE}.KeyA ;; }
+  dimension: KeyB { 
+    type: string
+    required_access_grants: [ client_id_1,] 
+    sql: ${TABLE}.KeyB ;; }
+  dimension: KeyF { 
+    type: string
+    required_access_grants: [ client_id_2,] 
+    sql: ${TABLE}.KeyF ;; }
+  dimension: KeyG { 
+    type: string
+    required_access_grants: [ client_id_2,] 
+    sql: ${TABLE}.KeyG ;; }
+  dimension: KeyX { 
+    type: string
+    required_access_grants: [ client_id_2,] 
+    sql: ${TABLE}.KeyX ;; }
+  
+  
+  }
